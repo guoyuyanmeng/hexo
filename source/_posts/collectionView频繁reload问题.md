@@ -5,7 +5,7 @@ date: 2016-10-11 19:56:29
 ## Overview
 最近发现一个好玩的问题，我在一个tableView的cell里面写了一个collectionView来加载图片。因为tableViewCell复用的缘故，每次复用cell的时候就会去获取cell对应数据，然后调用collectionView的reloadData方法。滑动tableVIew到固定一行的时候控制台就会输出以下bug 日志，然后程序就会crash.在stackoverflow上面也看到别人有相同的问题，有人提出是collectionView reload数据太频繁了，但是我发现就算是慢慢滑动，到固定某一个cell的时候也会报错，也就是说不是因为reload太频繁的缘故。但是在找不到其他原因的情况下我试着把reloadData方法卸载GCD异步线程里面发现问题真的不再复现了。很奇怪，哪位仁兄知道原因的帮忙解答一下。
 
-### bug日志
+## bug日志
 
 ```
 Assertion failure in -[UICollectionViewData validateLayoutInRect:], /BuildRoot/Library/Caches/com.apple.xbs/Sources/UIKit/UIKit-3599.6/UICollectionViewData.m:433**
@@ -14,7 +14,8 @@ Assertion failure in -[UICollectionViewData validateLayoutInRect:], /BuildRoot/L
 
 
 
-### 解决方案
+## 解决方案
+### 方案一：这种解方案在iPhone6s上是可以的运行的，但是在iPhone5上面还是会报错
 ```
 // [_collectionView reloadData];
 
@@ -23,3 +24,14 @@ dispatch_async(dispatch_get_main_queue(), ^{
     [_collectionView reloadData];
 });
 ```
+
+### 方案二：以下解决方案在iPhone5上也可以运行，不会报错
+```
+// [_collectionView reloadData];
+
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+[_collectionView reloadData];
+});
+
+```
+
