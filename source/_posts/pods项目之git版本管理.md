@@ -7,7 +7,7 @@ cocoapods是和方便的第三方库托管插件，使用cocoapods可以让我�
 
 ---
 
-# pods 安装库
+## pods 安装库
 
 （如果你的mac还没有安装cocoapods ---> [cocoapods安装](http://blog.csdn.net/guoyuyanmen/article/details/50638754)）
 打开终端，cd 进入项目文件夹
@@ -50,7 +50,7 @@ Pods文件夹
 这些文件都是什么呢?Podfile不用说，就是上面我们手动生成的pods配置文件，下面我们说说其他几个文件
 
 ---
-#  Podfile.lock
+##  Podfile.lock
 
 > This file is generated after the first run of pod install, and tracks
 > the version of each Pod that was installed.
@@ -60,7 +60,7 @@ Pods文件夹
 > This file should always be kept under version control.
 
 ---
-# pod文件夹
+## pod文件夹
 pod文件夹存放依赖库，并且记录pods依赖库当前安装的信息和一些配置。cocoapods官方推荐对pods文件夹做版本控制，但是也没有强烈推荐，还是看个人选择，各有优点吧。如果做版本控制，git clone 完代码也不用重新安装pods依赖库，直接可以编译运行，节省时间，同时计时依赖库在资源网站上下架也可以继续使用；如果不做版本控制，可以节省空间，节省代码同步的时间，可以减少合并分支的冲突。
 
 > Whether or not you check in the Pods directory, the Podfile and
@@ -69,7 +69,7 @@ pod文件夹存放依赖库，并且记录pods依赖库当前安装的信息和�
 不论pods文件夹做不做版本控制，对于podfile和podfile.lock你都应该做版本控制
 
 ---
-#  yourProject.xcworkspace
+##  yourProject.xcworkspace
 
 yourProject.xcworkspace文件是pods管理的xcode项目的程序入口，这个文件里面有一个文件UserInterfaceState.xcuserstate，总是提示有未提交的change ，很讨厌，所以我们把UserInterfaceState.xcuserstate放到.gitignore中，也就是不做版本控制。
 首先添加UserInterfaceState.xcuserstate的路径到.gitignorewen中
